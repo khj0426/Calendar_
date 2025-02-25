@@ -1,5 +1,10 @@
+import { SidebarLayer } from "./components/sidebar/SidebarLayer";
 function App() {
-  return <div className="text-3xl font-bold">Hello</div>;
+  return (
+    <div>
+      <SidebarLayer />
+    </div>
+  );
 }
 
 export default App;
