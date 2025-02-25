@@ -11,4 +11,5 @@
   --rdp-outline: 2px solid var(--rdp-accent-color);
   /* Outline border for focused and selected elements */
   --rdp-outline-selected: 2px solid #dbdbdb;
+  background-color: #f8fafd;
 }

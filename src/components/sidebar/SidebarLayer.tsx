@@ -1,6 +1,7 @@
 import { Button } from "../common/Button";
 import { FiPlus } from "react-icons/fi";
-import { SidebarCalendar } from "./SidebarCalendar";
+
+import { SidebarCalendar } from "../calendar/SidebarCalendar";
 
 export const SidebarLayer = () => {
   return (

@@ -13,11 +13,9 @@ export const renderCalendarCaptionYearMonth = ({ date }: { date: Date }) => {
 export const getDateRange = ({ date }: { date: Date }) => {
   const startDayofWeek = getDay(date);
 
-  const subDaysRange = Array.from({ length: startDayofWeek + 1 }).map(
-    (_, i) => {
-      return format(subDays(date, startDayofWeek - i), "dd");
-    }
-  );
+  const subDaysRange = Array.from({ length: startDayofWeek }).map((_, i) => {
+    return format(subDays(date, startDayofWeek - i), "dd");
+  });
 
   const addDaysRange = Array.from(
     { length: WEEK_LIST.length - startDayofWeek - 1 },
@@ -35,5 +33,13 @@ export const getSplitHours = () => {
     end: new Date(2025, 2, 26, 24),
   });
 
-  return resultOfSplit.map((hour) => format(hour, "HH"));
+  return resultOfSplit.map((hour) => Number(format(hour, "HH")));
+};
+
+export const fotmatHourToAmorPmString = (hour: number) => {
+  if (hour < 12) {
+    return `오전 ${hour}시`;
+  } else {
+    return `오후 ${hour}시`;
+  }
 };
