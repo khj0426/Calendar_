@@ -1,4 +1,4 @@
-import { addDays, format, getDay, subDays } from "date-fns";
+import { addDays, eachHourOfInterval, format, getDay, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import { WEEK_LIST } from "../constants";
 
@@ -27,4 +27,13 @@ export const getDateRange = ({ date }: { date: Date }) => {
   );
 
   return [...subDaysRange, ...addDaysRange];
+};
+
+export const getSplitHours = () => {
+  const resultOfSplit = eachHourOfInterval({
+    start: new Date(2025, 2, 26, 0),
+    end: new Date(2025, 2, 26, 24),
+  });
+
+  return resultOfSplit.map((hour) => format(hour, "HH"));
 };
