@@ -72,6 +72,9 @@ export const WeeklyCalendar = () => {
                         border: "1px solid rgba(0, 123, 255, 0.5)",
                         borderRadius: "4px",
                         boxSizing: "border-box",
+                        fontSize: "12px",
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       {v.title}
