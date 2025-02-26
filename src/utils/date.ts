@@ -1,4 +1,11 @@
-import { addDays, eachHourOfInterval, format, getDay, subDays } from "date-fns";
+import {
+  addDays,
+  eachHourOfInterval,
+  eachMinuteOfInterval,
+  format,
+  getDay,
+  subDays,
+} from "date-fns";
 import { ko } from "date-fns/locale";
 import { WEEK_LIST } from "../constants";
 
@@ -34,6 +41,17 @@ export const getSplitHours = () => {
   });
 
   return resultOfSplit.map((hour) => Number(format(hour, "HH")));
+};
+
+export const getSplitHoursToStringFormat = () => {
+  const resultOfSplit = eachMinuteOfInterval({
+    start: new Date(2025, 2, 26, 0),
+    end: new Date(2025, 2, 26, 24),
+  });
+
+  const splitByMinutes = resultOfSplit.filter((_, index) => index % 15 === 0);
+  const formattoString = splitByMinutes.map((date) => format(date, "HH : mm"));
+  return formattoString;
 };
 
 export const fotmatHourToAmorPmString = (hour: number) => {

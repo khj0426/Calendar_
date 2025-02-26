@@ -8,8 +8,7 @@ const scheduleListSlice = createSlice({
   initialState: [] as Array<Schedule>,
   reducers: {
     addschedule: (state, action: PayloadAction<Schedule>) => {
-      const newScheduleList = [...state, action.payload];
-      state = newScheduleList;
+      state.push(action.payload);
     },
     removeschedule: (state, action: PayloadAction<string>) => {
       const filteredScheduleList = [...state].filter(
