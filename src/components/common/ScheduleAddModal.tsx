@@ -15,6 +15,14 @@ export const ScheduleAddModal = () => {
   const dispatch = useAppDispatch();
 
   const [scheduleTitle, setScheduleTitle] = useState("");
+
+  const allTimes = getSplitHoursToStringFormat();
+
+  const getFilteredEndTimes = () => {
+    const startTimeIndex = allTimes.indexOf(scheduleTime.start);
+    return allTimes.slice(startTimeIndex + 1);
+  };
+
   const [scheduleTime, setScheduleTime] = useState({
     start: "",
     end: "",
@@ -24,14 +32,9 @@ export const ScheduleAddModal = () => {
     toggleValue: toggleCalendarOpen,
     setFalse: closeCalendar,
   } = useBoolean();
-  const [selectedDate, setSelectDate] = useState<string>("");
-
-  const allTimes = getSplitHoursToStringFormat();
-
-  const getFilteredEndTimes = () => {
-    const startTimeIndex = allTimes.indexOf(scheduleTime.start);
-    return allTimes.slice(startTimeIndex + 1);
-  };
+  const [selectedDate, setSelectDate] = useState<string>(
+    format(new Date(), "yyyy-MM-dd")
+  );
 
   return (
     <div aria-label="schedule-add-modal" className="h-full">
@@ -59,8 +62,9 @@ export const ScheduleAddModal = () => {
           className="block w-full border-0 text-2xl border-blue-600 focus:outline-none focus:border-b-2 focus:animate-pulse"
         />
 
-        <div className="">
+        <div>
           <input
+            onChange={(e) => setSelectDate(e.target.value)}
             value={selectedDate}
             className="text-[#1f1f1f] placeholder-[#1f1f1f] border-0 border-blue-600 focus:outline-none focus:border-b-2 focus:animate-pulse"
             onClick={toggleCalendarOpen}
@@ -90,7 +94,6 @@ export const ScheduleAddModal = () => {
               setScheduleTime({
                 ...scheduleTime,
                 start: e.target.value,
-                end: "",
               });
             }}
           >
@@ -129,6 +132,7 @@ export const ScheduleAddModal = () => {
           </Button>
           <Button
             onClick={() => {
+              console.log(scheduleTime, selectedDate);
               dispatch(
                 addschedule({
                   id:
@@ -136,10 +140,13 @@ export const ScheduleAddModal = () => {
                     scheduleTitle +
                     scheduleTime.start +
                     scheduleTime.end,
-                  startTime: scheduleTime.start,
-                  endTime: scheduleTime.end,
+                  startTime: scheduleTime.start ?? allTimes[0],
+                  endTime:
+                    scheduleTime.end.length !== 0
+                      ? scheduleTime.end
+                      : getFilteredEndTimes()[0],
                   date: selectedDate,
-                  title: scheduleTitle,
+                  title: scheduleTitle ?? "(제목 없음)",
                 })
               );
               dispatch(
