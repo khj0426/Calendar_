@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../hooks/use-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks/use-redux";
 import {
   getDateRange,
   getSplitHours,
@@ -9,10 +9,14 @@ import {
 import { format, isSameDay } from "date-fns";
 
 import { WEEK_LIST } from "../../constants";
+import { openModal } from "../../reducers/modal-slice";
+import { setDateReducer } from "../../reducers/calendar-slice";
 
 export const WeeklyCalendar = () => {
   const selectedDate = useAppSelector((state) => state.calendar.date);
   const allScheduleList = useAppSelector((state) => state.schedule);
+
+  const dispatch = useAppDispatch();
 
   return (
     <div className="grid grid-cols-8 gap-1 w-full bg-white p-6 border-2 border-gray-300 rounded-[28px] m-1.5">
@@ -48,6 +52,14 @@ export const WeeklyCalendar = () => {
               <div
                 className={`border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px]`}
                 key={hourIndex}
+                onClick={() => {
+                  dispatch(setDateReducer(new Date(day)));
+                  dispatch(
+                    openModal({
+                      modalType: "ScheduleAddModal",
+                    })
+                  );
+                }}
               >
                 {activeScheduleListFilteredByHour.map((v) => {
                   const startMinutes = convertTimeToMinutes(v.startTime);

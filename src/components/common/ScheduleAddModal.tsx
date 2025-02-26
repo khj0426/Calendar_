@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { IoCloseOutline } from "react-icons/io5";
 import { useBoolean } from "../../hooks/use-boolean";
-import { useAppDispatch } from "../../hooks/use-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-redux";
 import { closeModal } from "../../reducers/modal-slice";
 import { getSplitHoursToStringFormat } from "../../utils/date";
 
@@ -14,27 +14,28 @@ import { addschedule } from "../../reducers/schedule-slice";
 export const ScheduleAddModal = () => {
   const dispatch = useAppDispatch();
 
+  const initalSelectedDate = useAppSelector((state) => state.calendar.date);
+
   const [scheduleTitle, setScheduleTitle] = useState("");
 
   const allTimes = getSplitHoursToStringFormat();
+
+  const [scheduleTime, setScheduleTime] = useState({
+    start: "",
+    end: "",
+  });
 
   const getFilteredEndTimes = () => {
     const startTimeIndex = allTimes.indexOf(scheduleTime.start);
     return allTimes.slice(startTimeIndex + 1);
   };
 
-  const [scheduleTime, setScheduleTime] = useState({
-    start: "",
-    end: "",
-  });
   const {
     value: isCalendarOpen,
     toggleValue: toggleCalendarOpen,
     setFalse: closeCalendar,
   } = useBoolean();
-  const [selectedDate, setSelectDate] = useState<string>(
-    format(new Date(), "yyyy-MM-dd")
-  );
+  const [selectedDate, setSelectDate] = useState<string>(initalSelectedDate);
 
   return (
     <div aria-label="schedule-add-modal" className="h-full">
@@ -86,23 +87,27 @@ export const ScheduleAddModal = () => {
             />
           )}
           <select
-            className="border-0 border-blue-600 focus:outline-none focus:border-b-2 focus:animate-pulse"
+            className="border-0 max-h-[300px] overflow-y-auto border-blue-600 focus:outline-none focus:border-b-2 focus:animate-pulse"
             onFocus={() => {
               closeCalendar();
             }}
+            value={scheduleTime.start}
             onChange={(e) => {
               setScheduleTime({
-                ...scheduleTime,
                 start: e.target.value,
+                end: allTimes.slice(allTimes.indexOf(e.target.value))[1],
               });
             }}
           >
             {allTimes.map((time) => (
-              <option value={time}>{time}</option>
+              <option key={time} value={time}>
+                {time}
+              </option>
             ))}
           </select>
           <select
-            className="border-0 border-blue-600 focus:outline-none focus:border-b-2 focus:animate-pulse ml-12"
+            value={scheduleTime.end}
+            className="border-0 max-h-[300px] overflow-y-auto border-blue-600 focus:outline-none focus:border-b-2 focus:animate-pulse ml-12"
             onFocus={() => {
               closeCalendar();
             }}
@@ -114,12 +119,15 @@ export const ScheduleAddModal = () => {
             }}
           >
             {getFilteredEndTimes().map((time) => (
-              <option value={time}>{time}</option>
+              <option key={time} value={time}>
+                {time}
+              </option>
             ))}
           </select>
         </div>
-        <div className="flex justify-end w-full pr-1">
+        <div className="flex justify-end w-full pr-1 mt-auto">
           <Button
+            className="text-gray-700 h-[40px] w-[54px] bg-white hover:bg-gray-100 rounded-md text-sm font-medium"
             onClick={() =>
               dispatch(
                 closeModal({
@@ -131,8 +139,8 @@ export const ScheduleAddModal = () => {
             취소
           </Button>
           <Button
+            className="text-white ml-2 bg-blue-700 hover:bg-blue-800 font-medium rounded-md text-sm h-[40px] w-[54px] text-center"
             onClick={() => {
-              console.log(scheduleTime, selectedDate);
               dispatch(
                 addschedule({
                   id:
