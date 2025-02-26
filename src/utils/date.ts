@@ -18,7 +18,7 @@ export const getDateRange = ({ date }: { date: Date }) => {
   });
 
   const addDaysRange = Array.from(
-    { length: WEEK_LIST.length - startDayofWeek - 1 },
+    { length: WEEK_LIST.length - startDayofWeek },
     (_, i) => {
       return format(addDays(date, i), "dd");
     }

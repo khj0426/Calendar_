@@ -1,8 +1,15 @@
 import { FaAlignLeft } from "react-icons/fa";
 import { Button } from "../common/Button";
 
-import { setDateReducer } from "../../reducers/calendar-slice";
+import {
+  setDateReducer,
+  shiftToNextWeekReducer,
+  shiftToPrevWeekReducer,
+} from "../../reducers/calendar-slice";
 import { useAppDispatch } from "../../hooks/use-redux";
+
+import { FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight } from "react-icons/fa6";
 
 interface CalendarHeaderProps {
   toggleSidebar: () => void;
@@ -28,6 +35,11 @@ export const CalendarHeader = ({ toggleSidebar }: CalendarHeaderProps) => {
         >
           오늘
         </Button>
+      </div>
+
+      <div className="flex items-center gap-4 ml-8 cursor-pointer">
+        <FaAngleLeft onClick={() => dispatch(shiftToPrevWeekReducer())} />
+        <FaAngleRight onClick={() => dispatch(shiftToNextWeekReducer())} />
       </div>
     </header>
   );

@@ -21,6 +21,7 @@ export const SidebarCalendar = () => {
       }}
       locale={ko}
       selected={parseISO(selectedDate)}
+      month={parseISO(selectedDate)}
       captionLayout="label"
       mode="single"
       aria-label="sidebar-calendar"
