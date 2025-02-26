@@ -31,7 +31,7 @@ export const CalendarHeader = ({ toggleSidebar }: CalendarHeaderProps) => {
       <div>
         <Button
           className="ml-6 w-[74px] border-[1px] h-[32px]"
-          onClick={() => dispatch(setDateReducer(new Date()))}
+          onClick={() => dispatch(setDateReducer(new Date().toISOString()))}
         >
           오늘
         </Button>
