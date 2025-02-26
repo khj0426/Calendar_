@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ModalStateProps {
   isOpen: boolean;
@@ -12,17 +12,32 @@ const modalSlice = createSlice({
     modalType: "",
   } as ModalStateProps,
   reducers: {
-    openModal: (state, actions) => {
+    openModal: (
+      state,
+      actions: PayloadAction<{
+        modalType: string;
+      }>
+    ) => {
       const { modalType } = actions.payload;
       state.modalType = modalType;
       state.isOpen = true;
     },
-    closeModal: (state, actions) => {
+    closeModal: (
+      state,
+      actions: PayloadAction<{
+        modalType: string;
+      }>
+    ) => {
       const { modalType } = actions.payload;
       state.modalType = modalType;
       state.isOpen = false;
     },
-    toggleModal: (state, actions) => {
+    toggleModal: (
+      state,
+      actions: PayloadAction<{
+        modalType: string;
+      }>
+    ) => {
       const { modalType } = actions.payload;
       state.modalType = modalType;
       state.isOpen = !state.isOpen;

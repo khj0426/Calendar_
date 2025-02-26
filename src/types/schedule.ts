@@ -3,4 +3,5 @@ export interface Schedule {
   startTime: string;
   endTime: string;
   date: Date;
+  title: string;
 }
