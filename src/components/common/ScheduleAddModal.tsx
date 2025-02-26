@@ -14,9 +14,7 @@ import { addschedule } from "../../reducers/schedule-slice";
 export const ScheduleAddModal = () => {
   const dispatch = useAppDispatch();
 
-  const [scheduleTitle, setScheduleTitle] = useState(
-    format(new Date(), "yyyy-MM-dd")
-  );
+  const [scheduleTitle, setScheduleTitle] = useState("");
   const [scheduleTime, setScheduleTime] = useState({
     start: "",
     end: "",

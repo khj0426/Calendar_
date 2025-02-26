@@ -21,13 +21,13 @@ export const getDateRange = ({ date }: { date: Date }) => {
   const startDayofWeek = getDay(date);
 
   const subDaysRange = Array.from({ length: startDayofWeek }).map((_, i) => {
-    return format(subDays(date, startDayofWeek - i), "dd");
+    return format(subDays(date, startDayofWeek - i), "yyyy-MM-dd");
   });
 
   const addDaysRange = Array.from(
     { length: WEEK_LIST.length - startDayofWeek },
     (_, i) => {
-      return format(addDays(date, i), "dd");
+      return format(addDays(date, i), "yyyy-MM-dd");
     }
   );
 
@@ -60,4 +60,13 @@ export const fotmatHourToAmorPmString = (hour: number) => {
   } else {
     return `오후 ${hour}시`;
   }
+};
+
+export const convertTimeToMinutes = (time: string) => {
+  const [hours, minutes] = time
+    .split(":")
+    .map((part) => part.trim())
+    .map((part) => part);
+
+  return Number(hours) * 60 + Number(minutes);
 };
