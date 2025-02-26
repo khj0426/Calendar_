@@ -1,17 +1,21 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
+import scheduleReducer from "../reducers/schedule-slice";
 import calendarReducer from "../reducers/calendar-slice";
 
-import sessionStorage from "redux-persist/es/storage/session";
+import localStorage from "redux-persist/lib/storage";
+
 import { persistReducer, persistStore } from "redux-persist";
 
 //새로고침 시에도 반영되게 세팅
 const persistConfig = {
   key: "root",
-  storage: sessionStorage,
-  whitelist: ["calendar"],
+  storage: localStorage,
+  whitelist: ["schedule"],
 };
 
 const rootReducer = combineReducers({
+  schedule: scheduleReducer,
   calendar: calendarReducer,
 });
 
