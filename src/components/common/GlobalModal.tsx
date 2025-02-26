@@ -14,7 +14,7 @@ const MODAL_COMPONENTS = [
 ];
 
 export const GlobalModal = () => {
-  const { modalType } = useAppSelector((state) => state.modal);
+  const { modalType, isOpen } = useAppSelector((state) => state.modal);
 
   const findRenderModal = MODAL_COMPONENTS.find((modal) => {
     return modal.type === modalType;
@@ -24,9 +24,5 @@ export const GlobalModal = () => {
     return findRenderModal?.component;
   };
 
-  return (
-    <div role="dialog">
-      <RenderModalComponent />
-    </div>
-  );
+  return <div role="dialog">{isOpen && <RenderModalComponent />}</div>;
 };
