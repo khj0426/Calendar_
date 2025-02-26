@@ -14,7 +14,6 @@ export const WeeklyCalendar = () => {
   const selectedDate = useAppSelector((state) => state.calendar.date);
   const allScheduleList = useAppSelector((state) => state.schedule);
 
-  console.log(allScheduleList);
   return (
     <div className="grid grid-cols-8 gap-1 w-full bg-white p-6 border-2 border-gray-300 rounded-[28px] m-1.5">
       <div className="flex flex-col items-center mt-[111px] position-absolue">
@@ -47,11 +46,15 @@ export const WeeklyCalendar = () => {
 
             return (
               <div
-                className="border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px]"
+                className={`border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px] ${
+                  activeScheduleListFilteredByHour.length > 0
+                    ? "bg-blue-200"
+                    : ""
+                }`}
                 key={hourIndex}
               >
                 {activeScheduleListFilteredByHour.map((v) => (
-                  <div>{v.title}</div>
+                  <div key={v.id}>{v.title}</div>
                 ))}
               </div>
             );
