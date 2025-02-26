@@ -31,9 +31,9 @@ const calendarSlice = createSlice({
       const prevMonthDate = subMonths(new Date(state.date), 1);
       state.date = format(prevMonthDate, "yyyy-MM-dd");
     },
-    setDateReducer: (state, action: PayloadAction<Date>) => {
+    setDateReducer: (state, action: PayloadAction<string>) => {
       //유효한 날짜인지 검증
-      state.date = format(action.payload, "yyyy-MM-dd");
+      state.date = format(new Date(action.payload), "yyyy-MM-dd");
     },
   },
 });

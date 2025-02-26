@@ -20,14 +20,14 @@ export const SidebarCalendar = () => {
     <DayPicker
       onSelect={(date) => {
         if (date) {
-          dispatch(setDateReducer(date));
+          dispatch(setDateReducer(date.toISOString()));
         }
       }}
       locale={ko}
       selected={parseISO(selectedDate)}
       defaultMonth={parseISO(selectedDate)}
       month={parseISO(selectedDate)}
-      onMonthChange={(month) => setDateReducer(month)}
+      onMonthChange={(month) => setDateReducer(month.toISOString())}
       onPrevClick={() => dispatch(shiftToPrevMonthReducer())}
       onNextClick={() => dispatch(shiftToNextMonthReducer())}
       captionLayout="label"

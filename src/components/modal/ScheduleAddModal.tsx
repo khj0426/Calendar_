@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/use-redux";
 import { closeModal } from "../../reducers/modal-slice";
 import { getSplitHoursToStringFormat } from "../../utils/date";
 
-import { Button } from "./Button";
+import { Button } from "../common/Button";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { addschedule } from "../../reducers/schedule-slice";
@@ -16,7 +16,7 @@ export const ScheduleAddModal = () => {
 
   const initalSelectedDate = useAppSelector((state) => state.calendar.date);
 
-  const [scheduleTitle, setScheduleTitle] = useState("");
+  const [scheduleTitle, setScheduleTitle] = useState("제목 없음");
 
   const allTimes = getSplitHoursToStringFormat();
 
@@ -78,6 +78,7 @@ export const ScheduleAddModal = () => {
                 setSelectDate(format(day, "yyyy-MM-dd"));
                 closeCalendar();
               }}
+              today={new Date(initalSelectedDate)}
               classNames={{
                 root: "bg-white w-[315px] p-2 fixed",
                 selected: "text-blue-500",
@@ -154,7 +155,7 @@ export const ScheduleAddModal = () => {
                       ? scheduleTime.end
                       : getFilteredEndTimes()[0],
                   date: selectedDate,
-                  title: scheduleTitle ?? "(제목 없음)",
+                  title: scheduleTitle,
                 })
               );
               dispatch(

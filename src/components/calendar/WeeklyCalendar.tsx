@@ -15,9 +15,7 @@ import { setDateReducer } from "../../reducers/calendar-slice";
 export const WeeklyCalendar = () => {
   const selectedDate = useAppSelector((state) => state.calendar.date);
   const allScheduleList = useAppSelector((state) => state.schedule);
-
   const dispatch = useAppDispatch();
-
   return (
     <div className="grid grid-cols-8 gap-1 w-full bg-white p-6 border-2 border-gray-300 rounded-[28px] m-1.5">
       <div className="flex flex-col items-center mt-[111px] position-absolue">
@@ -43,7 +41,7 @@ export const WeeklyCalendar = () => {
           {getSplitHours().map((_hour, hourIndex) => {
             const activeScheduleListFilteredByHour = allScheduleList.filter(
               (schedule) =>
-                convertTimeToMinutes(schedule.startTime) <= _hour * 60 &&
+                convertTimeToMinutes(schedule.startTime) >= _hour * 60 &&
                 convertTimeToMinutes(schedule.endTime) >= _hour * 60 &&
                 isSameDay(new Date(schedule.date), new Date(day))
             );
@@ -53,7 +51,7 @@ export const WeeklyCalendar = () => {
                 className={`border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px]`}
                 key={hourIndex}
                 onClick={() => {
-                  dispatch(setDateReducer(new Date(day)));
+                  dispatch(setDateReducer(day));
                   dispatch(
                     openModal({
                       modalType: "ScheduleAddModal",

@@ -8,6 +8,7 @@ const scheduleListSlice = createSlice({
   initialState: [] as Array<Schedule>,
   reducers: {
     addschedule: (state, action: PayloadAction<Schedule>) => {
+      console.log(action.payload);
       state.push(action.payload);
     },
     removeschedule: (state, action: PayloadAction<string>) => {
