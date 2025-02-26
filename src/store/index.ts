@@ -1,8 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import scheduleReducer from "../reducers/schedule-slice";
+import scheduleReducer from "../reducers/schedule-list-slice";
 import calendarReducer from "../reducers/calendar-slice";
 import modalReducer from "../reducers/modal-slice";
+import activeScheduleReducer from "../reducers/active-schedule";
 
 import localStorage from "redux-persist/lib/storage";
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   schedule: scheduleReducer,
   calendar: calendarReducer,
   modal: modalReducer,
+  activeSchedule: activeScheduleReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

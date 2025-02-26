@@ -11,6 +11,7 @@ import { format, isSameDay } from "date-fns";
 import { WEEK_LIST } from "../../constants";
 import { openModal } from "../../reducers/modal-slice";
 import { setDateReducer } from "../../reducers/calendar-slice";
+import { setActiveSchedule } from "../../reducers/active-schedule";
 
 export const WeeklyCalendar = () => {
   const selectedDate = useAppSelector((state) => state.calendar.date);
@@ -50,7 +51,8 @@ export const WeeklyCalendar = () => {
               <div
                 className={`border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px]`}
                 key={hourIndex}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   dispatch(setDateReducer(day));
                   dispatch(
                     openModal({
@@ -71,6 +73,15 @@ export const WeeklyCalendar = () => {
 
                   return (
                     <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(setActiveSchedule(v));
+                        dispatch(
+                          openModal({
+                            modalType: "ScheduleDetailModal",
+                          })
+                        );
+                      }}
                       key={v.id}
                       style={{
                         position: "absolute",
