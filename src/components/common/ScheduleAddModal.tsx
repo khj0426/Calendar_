@@ -35,7 +35,7 @@ export const ScheduleAddModal = () => {
 
   return (
     <div aria-label="schedule-add-modal" className="h-full">
-      <div className="flex flex-col gap-4 p-8 bg-[#dde3ea] w-[480px] h-[554px] rounded-lg shadow-lg fixed overflow-x-hidden overflow-y-scroll top-30 left-1/2 transform -translate-x-1/2">
+      <div className="flex flex-col gap-4 p-8 z-10 bg-[#dde3ea] w-[480px] h-[554px] rounded-lg shadow-lg fixed overflow-x-hidden overflow-y-scroll top-30 left-1/2 transform -translate-x-1/2">
         <div
           className="flex w-full justify-end cursor-pointer"
           onClick={() =>

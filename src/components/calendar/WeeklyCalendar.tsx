@@ -29,7 +29,7 @@ export const WeeklyCalendar = () => {
       {getDateRange({
         date: new Date(selectedDate),
       }).map((day, index) => (
-        <div className="flex flex-col items-center" key={index}>
+        <div className="flex flex-col items-center relative" key={index}>
           <p className="text-[11px] text-[#444746] mb-0.5">
             {WEEK_LIST[index]}
           </p>
@@ -39,23 +39,45 @@ export const WeeklyCalendar = () => {
           {getSplitHours().map((_hour, hourIndex) => {
             const activeScheduleListFilteredByHour = allScheduleList.filter(
               (schedule) =>
-                convertTimeToMinutes(schedule.startTime) < (_hour + 1) * 60 &&
-                convertTimeToMinutes(schedule.endTime) > _hour * 60 &&
+                convertTimeToMinutes(schedule.startTime) <= _hour * 60 &&
+                convertTimeToMinutes(schedule.endTime) >= _hour * 60 &&
                 isSameDay(new Date(schedule.date), new Date(day))
             );
 
             return (
               <div
-                className={`border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px] ${
-                  activeScheduleListFilteredByHour.length > 0
-                    ? "bg-blue-200"
-                    : ""
-                }`}
+                className={`border-x-[1px] border-x-[#dde3ea] w-full h-[53px] border-b-[#dde3ea] border-b-[1px]`}
                 key={hourIndex}
               >
-                {activeScheduleListFilteredByHour.map((v) => (
-                  <div key={v.id}>{v.title}</div>
-                ))}
+                {activeScheduleListFilteredByHour.map((v) => {
+                  const startMinutes = convertTimeToMinutes(v.startTime);
+                  const endMinutes = convertTimeToMinutes(v.endTime);
+                  const totalMinutesInHour = 60;
+                  const totalHeight = 53;
+                  const height =
+                    ((endMinutes - startMinutes) / totalMinutesInHour) *
+                    totalHeight;
+                  const top = (startMinutes / totalMinutesInHour) * totalHeight;
+
+                  return (
+                    <div
+                      key={v.id}
+                      style={{
+                        position: "absolute",
+                        top: `${top + 110}px`,
+                        height: `${height}px`,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: "rgba(0, 123, 255, 0.2)",
+                        border: "1px solid rgba(0, 123, 255, 0.5)",
+                        borderRadius: "4px",
+                        boxSizing: "border-box",
+                      }}
+                    >
+                      {v.title}
+                    </div>
+                  );
+                })}
               </div>
             );
           })}

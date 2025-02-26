@@ -25,7 +25,6 @@ const calendarSlice = createSlice({
     },
     shiftToNextMonthReducer: (state) => {
       const nextMonthDate = addMonths(new Date(state.date), 1);
-      alert(nextMonthDate);
       state.date = format(nextMonthDate, "yyyy-MM-dd");
     },
     shiftToPrevMonthReducer: (state) => {
