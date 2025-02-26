@@ -6,7 +6,11 @@ import "react-day-picker/style.css";
 import "./sidebar-day-picker.css";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/use-redux";
-import { setDateReducer } from "../../reducers/calendar-slice";
+import {
+  setDateReducer,
+  shiftToPrevMonthReducer,
+  shiftToNextMonthReducer,
+} from "../../reducers/calendar-slice";
 
 export const SidebarCalendar = () => {
   const selectedDate = useAppSelector((state) => state.calendar.date);
@@ -21,7 +25,11 @@ export const SidebarCalendar = () => {
       }}
       locale={ko}
       selected={parseISO(selectedDate)}
+      defaultMonth={parseISO(selectedDate)}
       month={parseISO(selectedDate)}
+      onMonthChange={(month) => setDateReducer(month)}
+      onPrevClick={() => dispatch(shiftToPrevMonthReducer())}
+      onNextClick={() => dispatch(shiftToNextMonthReducer())}
       captionLayout="label"
       mode="single"
       aria-label="sidebar-calendar"

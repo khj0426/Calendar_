@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { formatDate, subWeeks, format, addWeeks } from "date-fns";
+import {
+  formatDate,
+  subWeeks,
+  format,
+  addWeeks,
+  addMonths,
+  subMonths,
+} from "date-fns";
 
 const calendarSlice = createSlice({
   name: "calendar-slice",
@@ -16,6 +23,15 @@ const calendarSlice = createSlice({
       const nextWeekDate = addWeeks(new Date(state.date), 1);
       state.date = format(nextWeekDate, "yyyy-MM-dd");
     },
+    shiftToNextMonthReducer: (state) => {
+      const nextMonthDate = addMonths(new Date(state.date), 1);
+      alert(nextMonthDate);
+      state.date = format(nextMonthDate, "yyyy-MM-dd");
+    },
+    shiftToPrevMonthReducer: (state) => {
+      const prevMonthDate = subMonths(new Date(state.date), 1);
+      state.date = format(prevMonthDate, "yyyy-MM-dd");
+    },
     setDateReducer: (state, action: PayloadAction<Date>) => {
       //유효한 날짜인지 검증
       state.date = format(action.payload, "yyyy-MM-dd");
@@ -27,6 +43,8 @@ export const {
   setDateReducer,
   shiftToNextWeekReducer,
   shiftToPrevWeekReducer,
+  shiftToNextMonthReducer,
+  shiftToPrevMonthReducer,
 } = calendarSlice.actions;
 
 export default calendarSlice.reducer;
