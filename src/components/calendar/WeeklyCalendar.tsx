@@ -18,7 +18,7 @@ export const WeeklyCalendar = () => {
   const allScheduleList = useAppSelector((state) => state.schedule);
   const dispatch = useAppDispatch();
   return (
-    <div className="grid grid-cols-8 gap-1 w-full bg-white p-6 border-2 border-gray-300 rounded-[28px] m-1.5">
+    <div className="grid grid-cols-8 gap-1 w-full bg-white p-6 border-[1px] border-[#dde3ea] rounded-[28px] m-1.5">
       <div className="flex flex-col items-center mt-[111px] position-absolue">
         {getSplitHours().map((hour, index) => (
           <div
