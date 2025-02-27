@@ -90,7 +90,16 @@ export const WeeklyCalendar = () => {
                     <div
                       onClick={(e) => {
                         e.stopPropagation();
-                        dispatch(setActiveSchedule(v));
+                        if (v.isRepeat) {
+                          dispatch(
+                            setActiveSchedule({
+                              ...v,
+                              date: day,
+                            })
+                          );
+                        } else {
+                          dispatch(setActiveSchedule(v));
+                        }
                         dispatch(
                           openModal({
                             modalType: "ScheduleDetailModal",
