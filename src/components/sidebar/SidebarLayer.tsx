@@ -13,8 +13,9 @@ export const SidebarLayer = ({ isOpen }: SidebarLayerProps) => {
   const dispatch = useAppDispatch();
   if (isOpen) {
     return (
-      <nav className="h-[100vh] flex flex-col gap-2.5 w-[248px] mt-1.5">
+      <nav className="flex flex-col gap-2.5 w-[248px] mt-1.5 pl-4">
         <Button
+          className="w-[128px] hover:bg-gray-200"
           startIcon={<FiPlus size={25} />}
           onClick={() => {
             dispatch(

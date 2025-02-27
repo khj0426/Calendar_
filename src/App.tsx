@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="flex flex-col">
       <CalendarHeader toggleSidebar={toggleSidebar} />
-      <div className="flex gap-5 mt-1.5 justify-between w-full">
+      <div className="flex gap-5 mt-1.5 w-full flex-col md:flex-row">
         <SidebarLayer isOpen={isSidebarOpen} />
         <WeeklyCalendar />
       </div>

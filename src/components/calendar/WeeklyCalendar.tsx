@@ -33,10 +33,10 @@ export const WeeklyCalendar = () => {
         date: new Date(selectedDate),
       }).map((day, index) => (
         <div className="flex flex-col items-center relative" key={index}>
-          <p className="text-[11px] text-[#444746] mb-0.5">
+          <p className="md:text-[11px] text-[#444746] mb-0.5 text-[8px]">
             {WEEK_LIST[index]}
           </p>
-          <p className="text-[26px] text-[#444746]">
+          <p className="md:text-[26px] text-[#444746] text-[18px]">
             {format(new Date(day), "dd")}
           </p>
           {getSplitHours().map((_hour, hourIndex) => {

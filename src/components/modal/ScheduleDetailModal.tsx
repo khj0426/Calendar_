@@ -33,7 +33,7 @@ export const ScheduleDetailModal = () => {
         id="medium-modal"
       >
         <div
-          className="relative px-4 w-full max-w-lg h-full md:h-auto mx-auto mt-64"
+          className="relative px-4 md:w-full w-[320px] max-w-lg h-full md:h-auto mx-auto mt-64"
           ref={scheduleDetailModalRef}
         >
           <div className="relative bg-white rounded-lg shadow-lg border border-gray-200">

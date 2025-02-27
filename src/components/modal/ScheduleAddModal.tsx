@@ -43,7 +43,7 @@ export const ScheduleAddModal = () => {
   return (
     <div aria-label="schedule-add-modal" className="h-full">
       <div
-        className="flex flex-col gap-4 p-6 z-10 bg-white w-[480px] h-auto rounded-lg shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-gray-300"
+        className="flex flex-col gap-4 p-6 z-10 bg-white md:w-[480px] w-[320px] h-auto rounded-lg shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-gray-300"
         ref={scheduleAddModalRef}
       >
         <div
