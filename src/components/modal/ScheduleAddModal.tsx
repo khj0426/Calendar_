@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { IoCloseOutline } from "react-icons/io5";
 import { useBoolean } from "../../hooks/use-boolean";
+import { useClickAway } from "../../hooks/use-clickoutside";
 import { useAppDispatch, useAppSelector } from "../../hooks/use-redux";
 import { closeModal } from "../../reducers/modal-slice";
 import { getSplitHoursToStringFormat } from "../../utils/date";
@@ -16,6 +17,7 @@ export const ScheduleAddModal = () => {
   const [scheduleTitle, setScheduleTitle] = useState("제목 없음");
   const [scheduleTime, setScheduleTime] = useState({ start: "", end: "" });
   const allTimes = getSplitHoursToStringFormat();
+  const scheduleAddModalRef = useRef<HTMLDivElement | null>(null);
 
   const getFilteredEndTimes = () => {
     const startTimeIndex = allTimes.indexOf(scheduleTime.start);
@@ -28,12 +30,22 @@ export const ScheduleAddModal = () => {
     setFalse: closeCalendar,
   } = useBoolean();
 
+  useClickAway(scheduleAddModalRef, () => {
+    dispatch(
+      closeModal({
+        modalType: "ScheduleAddModal",
+      })
+    );
+  });
   const { value: isRepeat, toggleValue: toggleIsScheduleRepeat } = useBoolean();
   const [selectedDate, setSelectDate] = useState<string>(initalSelectedDate);
 
   return (
     <div aria-label="schedule-add-modal" className="h-full">
-      <div className="flex flex-col gap-4 p-6 z-10 bg-white w-[480px] h-auto rounded-lg shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-gray-300">
+      <div
+        className="flex flex-col gap-4 p-6 z-10 bg-white w-[480px] h-auto rounded-lg shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-gray-300"
+        ref={scheduleAddModalRef}
+      >
         <div
           className="flex w-full justify-end cursor-pointer"
           onClick={() =>
