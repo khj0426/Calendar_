@@ -14,8 +14,8 @@ export const ScheduleAddModal = () => {
   const dispatch = useAppDispatch();
   const initalSelectedDate = useAppSelector((state) => state.calendar.date);
   const [scheduleTitle, setScheduleTitle] = useState("제목 없음");
-  const allTimes = getSplitHoursToStringFormat();
   const [scheduleTime, setScheduleTime] = useState({ start: "", end: "" });
+  const allTimes = getSplitHoursToStringFormat();
 
   const getFilteredEndTimes = () => {
     const startTimeIndex = allTimes.indexOf(scheduleTime.start);
@@ -27,6 +27,8 @@ export const ScheduleAddModal = () => {
     toggleValue: toggleCalendarOpen,
     setFalse: closeCalendar,
   } = useBoolean();
+
+  const { value: isRepeat, toggleValue: toggleIsScheduleRepeat } = useBoolean();
   const [selectedDate, setSelectDate] = useState<string>(initalSelectedDate);
 
   return (
@@ -113,6 +115,17 @@ export const ScheduleAddModal = () => {
           </select>
         </div>
 
+        <div className="flex justify-between w-full pr-1 mt-4">
+          <Button
+            className={`${
+              isRepeat ? "bg-gray-400 text-white" : "bg-white text-black"
+            } rounded px-4 py-2 transition duration-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500`}
+            onClick={toggleIsScheduleRepeat}
+          >
+            매일 반복
+          </Button>
+        </div>
+
         <div className="flex justify-end w-full pr-1 mt-4">
           <Button
             className="text-gray-700 h-[40px] w-[54px] bg-white hover:bg-gray-100 rounded-md text-sm font-medium"
@@ -132,13 +145,11 @@ export const ScheduleAddModal = () => {
                     scheduleTitle +
                     scheduleTime.start +
                     scheduleTime.end,
-                  startTime: scheduleTime.start ?? allTimes[0],
-                  endTime:
-                    scheduleTime.end.length !== 0
-                      ? scheduleTime.end
-                      : getFilteredEndTimes()[0],
+                  startTime: scheduleTime.start,
+                  endTime: scheduleTime.end,
                   date: selectedDate,
                   title: scheduleTitle,
+                  isRepeat,
                 })
               );
               dispatch(closeModal({ modalType: "ScheduleAddModal" }));

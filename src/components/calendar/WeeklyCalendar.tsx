@@ -41,10 +41,25 @@ export const WeeklyCalendar = () => {
           </p>
           {getSplitHours().map((_hour, hourIndex) => {
             const activeScheduleListFilteredByHour = allScheduleList.filter(
-              (schedule) =>
-                convertTimeToMinutes(schedule.startTime) >= _hour * 60 &&
-                convertTimeToMinutes(schedule.endTime) >= _hour * 60 &&
-                isSameDay(new Date(schedule.date), new Date(day))
+              (schedule) => {
+                const startTimeInMinutes = convertTimeToMinutes(
+                  schedule.startTime
+                );
+                const endTimeInMinutes = convertTimeToMinutes(schedule.endTime);
+
+                if (schedule.isRepeat) {
+                  return (
+                    startTimeInMinutes >= _hour * 60 &&
+                    endTimeInMinutes >= _hour * 60
+                  );
+                } else {
+                  return (
+                    startTimeInMinutes >= _hour * 60 &&
+                    endTimeInMinutes >= _hour * 60 &&
+                    isSameDay(new Date(schedule.date), new Date(day))
+                  );
+                }
+              }
             );
 
             return (

@@ -4,4 +4,5 @@ export interface Schedule {
   endTime: string;
   date: string;
   title: string;
+  isRepeat?: boolean;
 }
