@@ -12,7 +12,7 @@ export const MontlyCalendar = () => {
   const allScheduleList = useAppSelector((state) => state.schedule);
 
   return (
-    <div className="w-full bg-white rounded-[28px] m-1.5 flex justify-center p-4 border-2 border-gray-100">
+    <div className="w-full bg-white rounded-[28px] m-1.5 flex justify-center md:p-4 border-2 border-gray-100 table-fixed">
       <DayPicker
         onDayClick={() => {}}
         locale={ko}
@@ -23,9 +23,10 @@ export const MontlyCalendar = () => {
             );
             const hasScheduleInDay =
               activeScheduleListFilteredByDate.length > 0;
+
             return (
               <div
-                className={`table-cell align-baseline box-border w-[260px] h-[240px] border-[1px] border-gray-300 text-[#1f1f1f] text-[12px]`}
+                className={`table-cell w-[56px] h-[56px] md:w-[260px] md:h-[240px] align-baseline box-border border-[1px] border-gray-300 text-[#1f1f1f] text-[12px]`}
                 onClick={() => {
                   dispatch(setDateReducer(day.date.toISOString()));
                   if (hasScheduleInDay) {
