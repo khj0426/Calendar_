@@ -14,7 +14,6 @@ export const MontlyCalendar = () => {
   return (
     <div className="w-full bg-white rounded-[28px] m-1.5 flex justify-center md:p-4 border-2 border-gray-100 table-fixed">
       <DayPicker
-        onDayClick={() => {}}
         locale={ko}
         components={{
           Day: ({ day }) => {
