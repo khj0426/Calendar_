@@ -202,3 +202,5 @@ export const GlobalModal = () => {
   return <div role="dialog">{isOpen && <RenderModalComponent />}</div>;
 };
 ```
+
+정말 많은 것을 배웠던 과제였습니다. 재미있게 개발할 수 있었고, 하나하나 완성된 기능들을 보며 뿌듯했어요 😙 감사합니다 
