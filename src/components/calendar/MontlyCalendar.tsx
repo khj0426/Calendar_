@@ -15,6 +15,7 @@ export const MontlyCalendar = () => {
     <div className="w-full bg-white rounded-[28px] m-1.5 flex justify-center md:p-4 border-2 border-gray-100 table-fixed">
       <DayPicker
         locale={ko}
+        month={new Date(initalActiveDate)}
         components={{
           Day: ({ day }) => {
             const activeScheduleListFilteredByDate = allScheduleList.filter(
@@ -59,7 +60,6 @@ export const MontlyCalendar = () => {
             );
           },
         }}
-        defaultMonth={new Date(initalActiveDate)}
         hideNavigation
       />
     </div>

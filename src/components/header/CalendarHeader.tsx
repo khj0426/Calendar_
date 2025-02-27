@@ -3,7 +3,9 @@ import { Button } from "../common/Button";
 
 import {
   setDateReducer,
+  shiftToNextMonthReducer,
   shiftToNextWeekReducer,
+  shiftToPrevMonthReducer,
   shiftToPrevWeekReducer,
 } from "../../reducers/calendar-slice";
 import { useAppDispatch } from "../../hooks/use-redux";
@@ -15,12 +17,14 @@ interface CalendarHeaderProps {
   toggleSidebar: () => void;
   setMontlyCalendarOpen: () => void;
   setWeeklyCalendarOpen: () => void;
+  calendarType: "week" | "month";
 }
 
 export const CalendarHeader = ({
   toggleSidebar,
   setWeeklyCalendarOpen,
   setMontlyCalendarOpen,
+  calendarType,
 }: CalendarHeaderProps) => {
   const dispatch = useAppDispatch();
   return (
@@ -49,8 +53,28 @@ export const CalendarHeader = ({
       </div>
 
       <div className="flex items-center gap-4 ml-8 cursor-pointer h-full">
-        <FaAngleLeft onClick={() => dispatch(shiftToPrevWeekReducer())} />
-        <FaAngleRight onClick={() => dispatch(shiftToNextWeekReducer())} />
+        <div className="hover:bg-gray-300 rounded-2xl p-4">
+          <FaAngleLeft
+            onClick={() => {
+              if (calendarType === "week") {
+                dispatch(shiftToPrevWeekReducer());
+              } else {
+                dispatch(shiftToPrevMonthReducer());
+              }
+            }}
+          />
+        </div>
+        <div className="hover:bg-gray-300 rounded-2xl p-4">
+          <FaAngleRight
+            onClick={() => {
+              if (calendarType === "week") {
+                dispatch(shiftToNextWeekReducer());
+              } else {
+                dispatch(shiftToNextMonthReducer());
+              }
+            }}
+          />
+        </div>
       </div>
 
       <div className="ml-auto flex gap-1.5">

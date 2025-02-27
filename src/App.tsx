@@ -16,6 +16,7 @@ function App() {
     <div className="flex flex-col">
       <CalendarHeader
         toggleSidebar={toggleSidebar}
+        calendarType={isMontlyCalendarOpen ? "month" : "week"}
         setWeeklyCalendarOpen={openWeeklyCalendar}
         setMontlyCalendarOpen={openMontlyCalendar}
       />
